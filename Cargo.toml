@@ -1,7 +1,11 @@
 [package]
 name = "palletize"
 version = "0.1.0"
-edition = "2024"
+description = "A dirty but easy to use framework for 3D bin packing"
+readme = "README.md"
+license = "BSD-3-Clause"
+keywords = ["orthogonal packing", "3d bin packing", "warehouse", "box packing"]
+repository = "https://github.com/pixmusix/palletize"
 
 [dependencies]
 rand = { version="0.10.0", features=["thread_rng"] }
