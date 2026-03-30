@@ -6,6 +6,11 @@ readme = "README.md"
 license = "BSD-3-Clause"
 keywords = ["orthogonal packing", "3d bin packing", "warehouse", "box packing"]
 repository = "https://github.com/pixmusix/palletize"
+edition = "2024"
+
+[lib]
+name = "palletize"
+crate-type = ["lib"]
 
 [dependencies]
 rand = { version="0.10.0", features=["thread_rng"] }
