@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A dirty but easy to use framework for 3D bin packing"
 readme = "README.md"
 license = "BSD-3-Clause"
-keywords = ["orthogonal packing", "3d bin packing", "warehouse", "box packing"]
+# keywords = ["packing", "packing-problem", "3d-bin-packing", "warehouse", "box-packing", "buisness", "orthogonal"]
 repository = "https://github.com/pixmusix/palletize"
 edition = "2024"
 
