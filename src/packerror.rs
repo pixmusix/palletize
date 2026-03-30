@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-/// Mispack outlines all the ways a pallet can gracefully reject a box.
+/// Mispack: all the ways a pallet can gracefully reject a box.
 #[derive(Error, Debug)]
 pub enum Mispack {
     #[error("Item dimensions exceed pallet dimensions")]
