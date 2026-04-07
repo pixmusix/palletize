@@ -59,9 +59,12 @@ pub fn packit(items: &mut Vec<Carton>, dims: Dims, max_weight: Option<Mass>) -> 
             }
         }
 
-        // Pallet is full — shrink it and ship it
-        pallet.squash();
-        shipment.push(pallet);
+        // Did anything fit? (not a guarentee)
+        if pallet.item_count() > 0 {
+            // Pallet is full — shrink it and ship it
+            pallet.squash();
+            shipment.push(pallet);
+        }
 
         // Got left overs? No worries, we loop back for a new pallet.
         *items = leftover;
