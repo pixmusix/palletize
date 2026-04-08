@@ -44,9 +44,7 @@ pub fn packit(items: &mut Vec<Carton>, dims: Dims, max_weight: Option<Mass>) -> 
 
         while let Some(item) = items.pop() {
             match pallet.add(item) {
-                Ok(_) => {
-                    println!("Packed item {}", item);
-                }
+                Ok(_) => {},
                 Err(Mispack::DoesNotFit) | Err( Mispack::Overweight) => {
                     leftover.push(item);
                 }
