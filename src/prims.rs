@@ -2,6 +2,7 @@ use uom::si::f64::{Length, Volume};
 use std::cmp::Ordering;
 
 /// 3D Dimensions with arbitrary units.
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Dims {
     pub length: Length,
@@ -34,6 +35,7 @@ impl Dims {
 }
 
 /// A 3D vector
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Coords {
     pub x: Length,

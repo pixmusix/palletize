@@ -7,6 +7,7 @@ use uom::si::length::centimeter;
 
 /// A box/container to be packed.
 /// Some(coords) signals that the box is placed in a pallet.
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Carton {
     pub dims: Dims,

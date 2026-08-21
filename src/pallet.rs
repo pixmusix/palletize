@@ -6,6 +6,7 @@ use uom::si::mass::kilogram;
 use std::cmp::Ordering;
 
 /// Represents a container of cartons.
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, Clone)]
 pub struct Pallet {
     pub dims: Dims,

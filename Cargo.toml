@@ -14,5 +14,9 @@ crate-type = ["lib"]
 
 [dependencies]
 rand = { version="0.10.0", features=["thread_rng"] }
+serde = { version = "1.0.229", features = ["derive"], optional = true }
 thiserror = "2.0.18"
 uom = "0.38.0"
+
+[features]
+serde = ["dep:serde", "uom/serde"]
