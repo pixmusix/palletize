@@ -7,7 +7,7 @@ use uom::si::length::centimeter;
 
 /// A box/container to be packed.
 /// Some(coords) signals that the box is placed in a pallet.
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Carton {
     pub dims: Dims,
@@ -98,6 +98,29 @@ impl Carton {
         } else {
             false // abstractly, I suppose a box with no coordinates can't really intersect
         }
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for Carton {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[derive(serde::Deserialize)]
+        #[serde(deny_unknown_fields)]
+        struct CartonSpec {
+            dims: Dims,
+            #[serde(default)]
+            mass: Option<Mass>,
+        }
+
+        let spec = CartonSpec::deserialize(deserializer)?;
+        Ok(Carton {
+            dims: spec.dims,
+            mass: spec.mass,
+            coords: None,
+        })
     }
 }
 
