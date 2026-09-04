@@ -6,7 +6,7 @@ use uom::si::mass::kilogram;
 use std::cmp::Ordering;
 
 /// Represents a container of cartons.
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
 #[derive(Debug, Clone)]
 pub struct Pallet {
     pub dims: Dims,
@@ -208,6 +208,39 @@ impl Pallet {
             self.squash();
             self
         }
+}
+
+/// Deserializes `dims`/`max_weight` only; always yields an empty pallet.
+/// 
+/// Rejects an `items` field rather than letting input fake a packed state.
+///
+/// ### Example Json
+/// ```json
+/// {
+///  "dims": { "length": 1.2, "width": 1.0, "height": 1.44 },
+///  "max_weight": 500.0
+/// }
+/// ```
+
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for Pallet {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[derive(serde::Deserialize)]
+        #[serde(deny_unknown_fields)]
+        struct PalletSpec {
+            dims: Dims,
+            #[serde(default)]
+            max_weight: Option<Mass>,
+        }
+
+        let spec = PalletSpec::deserialize(deserializer)?;
+        let mut pallet = Pallet::from_dims(spec.dims);
+        pallet.max_weight = spec.max_weight;
+        Ok(pallet)
+    }
 }
 
 /// Make a carton into an empty pallet of the same size.
